@@ -11,7 +11,9 @@ import {
   UserGreeting,
   UserName,
   Icon,
+  HighlightCards
 } from './styles';
+import { HighlightCard } from '../../components/HighlightCard';
 
 export function Dashboard() {
   return (
@@ -34,6 +36,27 @@ export function Dashboard() {
 
           </UserWrapper>
         </Header>
+
+        <HighlightCards>
+          <HighlightCard
+            title="Entradas"
+            amount="R$ 17.400,00"
+            lastTransaction="Último dia 13 de abril"
+            type="up"
+          />
+          <HighlightCard
+            title="Saídas"
+            amount="R$ 1.259,00"
+            lastTransaction="Último dia 13 de abril"
+            type="down"
+          />
+          <HighlightCard
+            title="Total"
+            amount="R$ 18.659,00"
+            lastTransaction="Último dia 13 de abril"
+            type="total"
+          />
+        </HighlightCards>
       </Container>
     </>
   )
