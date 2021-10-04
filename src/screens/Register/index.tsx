@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text } from 'react-native'
-import { Container, Header, Title } from './styles'
+import { Input } from '../../components/Forms/Input'
+import { Container, Header, Title, Form } from './styles'
 
 export function Register() {
   return (
@@ -8,6 +8,12 @@ export function Register() {
       <Header>
         <Title>Cadastro</Title>
       </Header>
+
+      <Form>
+        <Input placeholder="Nome" />
+
+        <Input placeholder="Preço" />
+      </Form>
     </Container>
   )
 }
