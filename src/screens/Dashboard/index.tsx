@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 
 import {
@@ -29,28 +29,28 @@ export function Dashboard() {
     {
       id: 1,
       type: 'positive',
-      title: "Roupas",
-      amount: "R$ 300,59",
-      category: {name : 'Casa', icon: 'dollar-sign'},
-      date: "01/10/2021"
+      title: 'Roupas',
+      amount: 'R$ 300,59',
+      category: { name: 'Casa', icon: 'dollar-sign' },
+      date: '01/10/2021',
     },
     {
       id: 2,
       type: 'negative',
-      title: "Perfumes",
-      amount: "R$ 120,59",
-      category: {name : 'Casa', icon: 'coffee'},
-      date: "01/10/2021"
+      title: 'Perfumes',
+      amount: 'R$ 120,59',
+      category: { name: 'Casa', icon: 'coffee' },
+      date: '01/10/2021',
     },
     {
       id: 3,
       type: 'positive',
-      title: "Farmacia",
-      amount: "R$ 66,59",
-      category: {name : 'Casa', icon: 'shopping-bag'},
-      date: "01/10/2021"
+      title: 'Farmacia',
+      amount: 'R$ 66,59',
+      category: { name: 'Casa', icon: 'shopping-bag' },
+      date: '01/10/2021',
     },
-];
+  ];
 
   return (
     <>
@@ -60,7 +60,7 @@ export function Dashboard() {
           <UserWrapper>
             <UserInfo>
               <Photo
-                source={{uri: 'https://avatars.githubusercontent.com/u/65914504?v=4'}}
+                source={{ uri: 'https://avatars.githubusercontent.com/u/65914504?v=4' }}
               />
               <User>
                 <UserGreeting>Olá, </UserGreeting>
@@ -101,11 +101,11 @@ export function Dashboard() {
 
           <TransactionList
             data={dataTransactions}
-            keyExtractor={item => String(item.id)}
-            renderItem={({item}) => <TransactionCard data={item} />}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({ item }) => <TransactionCard data={item} />}
           />
         </Transactions>
       </Container>
     </>
-  )
+  );
 }

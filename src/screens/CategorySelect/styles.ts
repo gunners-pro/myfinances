@@ -1,7 +1,7 @@
-import { RFValue } from "react-native-responsive-fontsize";
-import styled from "styled-components/native";
-import {Feather} from '@expo/vector-icons';
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { RFValue } from 'react-native-responsive-fontsize';
+import styled from 'styled-components/native';
+import { Feather } from '@expo/vector-icons';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 interface CategoryProps {
   isActive: boolean;
@@ -9,22 +9,22 @@ interface CategoryProps {
 
 export const Container = styled(GestureHandlerRootView)`
   flex: 1;
-  background-color: ${({theme}) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Header = styled.View`
   width: 100%;
   height: ${RFValue(113)}px;
-  background-color: ${({theme}) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary};
   align-items: center;
   justify-content: flex-end;
   padding-bottom: 19px;
 `;
 
 export const Title = styled.Text`
-  font-family: ${({theme}) => theme.fonts.regular};
+  font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(18)}px;
-  color: ${({theme}) => theme.colors.shape};
+  color: ${({ theme }) => theme.colors.shape};
 `;
 
 export const Category = styled.TouchableOpacity<CategoryProps>`
@@ -33,8 +33,7 @@ export const Category = styled.TouchableOpacity<CategoryProps>`
   flex-direction: row;
   align-items: center;
 
-  background-color: ${({theme, isActive}) =>
-    isActive ? theme.colors.secondary_light : theme.colors.background
+  background-color: ${({ theme, isActive }) => (isActive ? theme.colors.secondary_light : theme.colors.background)
 };
 `;
 
@@ -44,14 +43,14 @@ export const Icon = styled(Feather)`
 `;
 
 export const Name = styled.Text`
-  font-family: ${({theme}) => theme.fonts.regular};
+  font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
 `;
 
 export const Separator = styled.View`
   height: 1px;
   width: 100%;
-  background-color: ${({theme}) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Footer = styled.View`

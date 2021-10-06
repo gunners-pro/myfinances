@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Container,
   Title,
@@ -7,10 +7,10 @@ import {
   Category,
   Icon,
   CategoryName,
-  Date
- } from './styles'
+  Date,
+} from './styles';
 
- export interface TransactionCardProps {
+export interface TransactionCardProps {
   type: 'positive' | 'negative';
   title: string;
   amount: string;
@@ -25,7 +25,7 @@ import {
    data: TransactionCardProps;
  }
 
-export function TransactionCard({data}: Props) {
+export function TransactionCard({ data }: Props) {
   return (
     <Container>
 
@@ -43,5 +43,5 @@ export function TransactionCard({data}: Props) {
       </Footer>
 
     </Container>
-  )
+  );
 }
