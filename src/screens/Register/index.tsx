@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from 'react-native';
 import { useForm } from 'react-hook-form';
+import uuid from 'react-native-uuid';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,6 +25,10 @@ interface FormData {
   amount: string;
 }
 
+type NavigationProps = {
+  navigate: (screen: string) => void;
+};
+
 const schema = yup.object().shape({
   name: yup.string().required('Nome é obrigatório'),
   amount: yup
@@ -39,9 +45,11 @@ export function Register() {
     key: 'category',
     name: 'Categoria',
   });
+  const navigation = useNavigation<NavigationProps>();
 
   const {
     control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -72,10 +80,12 @@ export function Register() {
     }
 
     const newTransaction = {
+      id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
       transactionType,
       category: category.key,
+      date: new Date(),
     };
 
     try {
@@ -92,6 +102,14 @@ export function Register() {
         collectionKey,
         JSON.stringify(dataTransactionsFormatted),
       );
+
+      setTransactionType('');
+      setCategory({
+        key: 'category',
+        name: 'Categoria',
+      });
+      reset();
+      navigation.navigate('Listagem');
     } catch (error) {
       console.log(error);
       Alert.alert('Não foi possível salvar');
