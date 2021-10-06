@@ -42,7 +42,7 @@ export function CategorySelect({
       <FlatList
         data={categories}
         style={{ flex: 1, width: '100%' }}
-        keyExtractor={(item) => item.key}
+        keyExtractor={item => item.key}
         renderItem={({ item }) => (
           <Category
             onPress={() => handleCategorySelect(item)}
@@ -58,7 +58,6 @@ export function CategorySelect({
       <Footer>
         <Button title="Selecionar" onPress={closeSelectCategory} />
       </Footer>
-
     </Container>
   );
 }

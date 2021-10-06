@@ -26,21 +26,31 @@ export function AppRoutes() {
         name="Listagem"
         component={Dashboard}
         options={{
-          tabBarIcon: (({ size, color }) => <MaterialIcons name="format-list-bulleted" size={size} color={color} />),
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons
+              name="format-list-bulleted"
+              size={size}
+              color={color}
+            />
+          ),
         }}
       />
       <Screen
         name="Cadastrar"
         component={Register}
         options={{
-          tabBarIcon: (({ size, color }) => <MaterialIcons name="attach-money" size={size} color={color} />),
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="attach-money" size={size} color={color} />
+          ),
         }}
       />
       <Screen
         name="Resumo"
         component={Register}
         options={{
-          tabBarIcon: (({ size, color }) => <MaterialIcons name="pie-chart" size={size} color={color} />),
+          tabBarIcon: ({ size, color }) => (
+            <MaterialIcons name="pie-chart" size={size} color={color} />
+          ),
         }}
       />
     </Navigator>

@@ -19,16 +19,15 @@ export interface TransactionCardProps {
     icon: string;
   };
   date: string;
- }
+}
 
- interface Props {
-   data: TransactionCardProps;
- }
+interface Props {
+  data: TransactionCardProps;
+}
 
 export function TransactionCard({ data }: Props) {
   return (
     <Container>
-
       <Title>{data.title}</Title>
       <Amount type={data.type}>
         {data.type === 'negative' && '- '}
@@ -41,7 +40,6 @@ export function TransactionCard({ data }: Props) {
         </Category>
         <Date>{data.date}</Date>
       </Footer>
-
     </Container>
   );
 }

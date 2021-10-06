@@ -22,7 +22,8 @@ export const Amount = styled.Text<TransactionProps>`
   font-size: ${RFValue(20)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   margin-top: 2px;
-  color: ${({ theme, type }) => (type === 'positive' ? theme.colors.success : theme.colors.attention)};
+  color: ${({ theme, type }) =>
+    type === 'positive' ? theme.colors.success : theme.colors.attention};
 `;
 
 export const Footer = styled.View`

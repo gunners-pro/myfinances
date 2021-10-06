@@ -18,7 +18,10 @@ import {
   LogoutButton,
 } from './styles';
 import { HighlightCard } from '../../components/HighlightCard';
-import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard';
+import {
+  TransactionCard,
+  TransactionCardProps,
+} from '../../components/TransactionCard';
 
 export interface DataListProps extends TransactionCardProps {
   id: number;
@@ -60,7 +63,9 @@ export function Dashboard() {
           <UserWrapper>
             <UserInfo>
               <Photo
-                source={{ uri: 'https://avatars.githubusercontent.com/u/65914504?v=4' }}
+                source={{
+                  uri: 'https://avatars.githubusercontent.com/u/65914504?v=4',
+                }}
               />
               <User>
                 <UserGreeting>Olá, </UserGreeting>
@@ -71,7 +76,6 @@ export function Dashboard() {
             <LogoutButton onPress={() => {}}>
               <Icon name="power" />
             </LogoutButton>
-
           </UserWrapper>
         </Header>
 
@@ -101,7 +105,7 @@ export function Dashboard() {
 
           <TransactionList
             data={dataTransactions}
-            keyExtractor={(item) => String(item.id)}
+            keyExtractor={item => String(item.id)}
             renderItem={({ item }) => <TransactionCard data={item} />}
           />
         </Transactions>
