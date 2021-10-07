@@ -12,7 +12,7 @@ import {
 interface Props {
   title: string;
   amount: string;
-  lastTransaction: string;
+  lastTransaction: string | undefined;
   type: 'up' | 'down' | 'total';
 }
 
