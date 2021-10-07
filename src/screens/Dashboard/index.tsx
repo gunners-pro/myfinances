@@ -71,7 +71,7 @@ export function Dashboard() {
     )}`;
   }
 
-  async function loadTransactions() {
+  const loadTransactions = useCallback(async () => {
     const collectionKey = '@myfinances:transactions';
     const response = await AsyncStorage.getItem(collectionKey);
     const getTransactions = response ? JSON.parse(response) : [];
@@ -156,16 +156,16 @@ export function Dashboard() {
     });
 
     setIsLoading(false);
-  }
+  }, []);
 
   useEffect(() => {
     loadTransactions();
-  }, []);
+  }, [loadTransactions]);
 
   useFocusEffect(
     useCallback(() => {
       loadTransactions();
-    }, []),
+    }, [loadTransactions]),
   );
 
   return (

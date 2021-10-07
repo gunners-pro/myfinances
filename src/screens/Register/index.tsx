@@ -111,7 +111,6 @@ export function Register() {
       reset();
       navigation.navigate('Listagem');
     } catch (error) {
-      console.log(error);
       Alert.alert('Não foi possível salvar');
     }
   }
@@ -161,7 +160,7 @@ export function Register() {
             />
           </Fields>
 
-          <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
+          <Button title="Cadastrar" onPress={handleSubmit(handleRegister)} />
         </Form>
 
         <Modal visible={categoryModalOpen}>
