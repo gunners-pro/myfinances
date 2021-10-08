@@ -21,6 +21,7 @@ import {
 } from './styles';
 import { TransactionCardProps } from '../../components/TransactionCard';
 import { categories } from '../../utils/categories';
+import { useAuth } from '../../context/AuthContext';
 
 interface TotalCategoryData {
   name: string;
@@ -37,6 +38,7 @@ export function Resume() {
   >([]);
   const theme = useTheme();
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const { user } = useAuth();
 
   function handleDateChange(action: 'next' | 'prev') {
     setIsLoading(true);
@@ -48,7 +50,7 @@ export function Resume() {
   }
 
   async function loadData() {
-    const collectionKey = '@myfinances:transactions';
+    const collectionKey = `@myfinances:transactions_user:${user?.id}`;
     const response = await AsyncStorage.getItem(collectionKey);
     const responseFormatted: TransactionCardProps[] = response
       ? JSON.parse(response)
@@ -102,6 +104,7 @@ export function Resume() {
   useFocusEffect(
     useCallback(() => {
       loadData();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedDate]),
   );
 

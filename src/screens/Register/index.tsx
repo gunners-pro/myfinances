@@ -19,6 +19,7 @@ import {
 } from './styles';
 import { CategorySelect } from '../CategorySelect';
 import { InputForm } from '../../components/Forms/InputForm';
+import { useAuth } from '../../context/AuthContext';
 
 interface FormData {
   name: string;
@@ -46,6 +47,7 @@ export function Register() {
     name: 'Categoria',
   });
   const navigation = useNavigation<NavigationProps>();
+  const { user } = useAuth();
 
   const {
     control,
@@ -69,7 +71,7 @@ export function Register() {
   }
 
   async function handleRegister(form: FormData) {
-    const collectionKey = '@myfinances:transactions';
+    const collectionKey = `@myfinances:transactions_user:${user?.id}`;
 
     if (!transactionType) {
       return Alert.alert('Selecione o tipo da transação');
