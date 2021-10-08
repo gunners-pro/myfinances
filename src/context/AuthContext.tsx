@@ -1,6 +1,13 @@
 /* eslint-disable prefer-destructuring */
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useEffect,
+} from 'react';
 import * as AuthSession from 'expo-auth-session';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const REDIRECT_URI = process.env.REDIRECT_URI;
@@ -21,7 +28,9 @@ interface User {
 
 type AuthContextData = {
   user?: User;
-  signInWithGoogle: () => void;
+  signInWithGoogle: () => Promise<void>;
+  signOut: () => Promise<void>;
+  userStorageLoading: boolean;
 };
 
 const AuthContext = createContext({} as AuthContextData);
@@ -32,6 +41,7 @@ interface AuthProviderProps {
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>({} as User);
+  const [userStorageLoading, setUserStorageLoading] = useState(true);
 
   async function signInWithGoogle() {
     try {
@@ -50,20 +60,47 @@ function AuthProvider({ children }: AuthProviderProps) {
         );
 
         const userInfo = await response.json();
-        setUser({
+        const userLogged = {
           id: userInfo.id,
           email: userInfo.email,
           name: userInfo.given_name,
           photo: userInfo.picture,
-        });
+        };
+        setUser(userLogged);
+        await AsyncStorage.setItem(
+          '@myfinances:user',
+          JSON.stringify(userLogged),
+        );
       }
     } catch (error) {
       throw new Error(error as string);
     }
   }
 
+  async function signOut() {
+    setUser({} as User);
+    await AsyncStorage.removeItem('@myfinances:user');
+  }
+
+  useEffect(() => {
+    async function loadUserStorageData() {
+      const userStoraged = await AsyncStorage.getItem('@myfinances:user');
+
+      if (userStoraged) {
+        const userLogged = JSON.parse(userStoraged) as User;
+        setUser(userLogged);
+      }
+
+      setUserStorageLoading(false);
+    }
+
+    loadUserStorageData();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle }}>
+    <AuthContext.Provider
+      value={{ user, signInWithGoogle, signOut, userStorageLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );
