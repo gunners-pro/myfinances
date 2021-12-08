@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Feather } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 
 import { ActivityIndicator } from 'react-native';
 import { useTheme } from 'styled-components';
+import { Swipeable } from 'react-native-gesture-handler';
 import {
   Container,
   Header,
@@ -21,6 +23,7 @@ import {
   TransactionList,
   LogoutButton,
   LoadingContainer,
+  RightActions,
 } from './styles';
 import { HighlightCard } from '../../components/HighlightCard';
 import {
@@ -78,6 +81,28 @@ export function Dashboard() {
       { month: 'long' },
     )}`;
   }
+
+  const removeTransaction = useCallback(
+    async (id: number) => {
+      const collectionKey = `@myfinances:transactions_user:${user?.id}`;
+      const response = await AsyncStorage.getItem(collectionKey);
+      const getTransactions: DataListProps[] = response
+        ? JSON.parse(response)
+        : [];
+
+      const newData = getTransactions.filter(
+        transaction => transaction.id !== id,
+      );
+
+      await AsyncStorage.setItem(collectionKey, JSON.stringify(newData));
+      const newTransactions = transactions.filter(
+        transaction => transaction.id !== id,
+      );
+
+      setTransactions(newTransactions);
+    },
+    [user?.id, transactions],
+  );
 
   const loadTransactions = useCallback(async () => {
     const collectionKey = `@myfinances:transactions_user:${user?.id}`;
@@ -242,7 +267,18 @@ export function Dashboard() {
               <TransactionList
                 data={transactions}
                 keyExtractor={item => String(item.id)}
-                renderItem={({ item }) => <TransactionCard data={item} />}
+                renderItem={({ item }) => (
+                  <Swipeable
+                    renderRightActions={() => (
+                      <RightActions onPress={() => removeTransaction(item.id)}>
+                        <Feather name="trash-2" color="#fff" size={22} />
+                      </RightActions>
+                    )}
+                    overshootRight={false}
+                  >
+                    <TransactionCard data={item} />
+                  </Swipeable>
+                )}
               />
             </Transactions>
           </Container>

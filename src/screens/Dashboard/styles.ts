@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { Feather } from '@expo/vector-icons';
 import { FlatList } from 'react-native';
-import { BorderlessButton } from 'react-native-gesture-handler';
+import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { DataListProps } from '.';
 
 export const Container = styled.View`
@@ -97,4 +97,14 @@ export const LoadingContainer = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+`;
+
+export const RightActions = styled(RectButton)`
+  background-color: ${({ theme }) => theme.colors.attention};
+  justify-content: center;
+  align-items: center;
+  margin-bottom: ${RFValue(14)}px;
+  width: 20%;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 `;
