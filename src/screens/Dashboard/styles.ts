@@ -108,3 +108,9 @@ export const RightActions = styled(RectButton)`
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
 `;
+
+export const ListEmptyTransaction = styled.Text`
+  text-align: center;
+  color: ${({ theme }) => theme.colors.text};
+  font-family: ${({ theme }) => theme.fonts.regular};
+`;

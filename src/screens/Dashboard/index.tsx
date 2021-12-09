@@ -24,6 +24,7 @@ import {
   LogoutButton,
   LoadingContainer,
   RightActions,
+  ListEmptyTransaction,
 } from './styles';
 import { HighlightCard } from '../../components/HighlightCard';
 import {
@@ -173,20 +174,18 @@ export function Dashboard() {
           style: 'currency',
           currency: 'BRL',
         }),
-        lastTransaction:
-          lastTransactionEntries === 0
-            ? 'Não há transações'
-            : `Última entrada dia ${lastTransactionEntries}`,
+        lastTransaction: !lastTransactionEntries
+          ? 'Não há entradas'
+          : `Última entrada dia ${lastTransactionEntries}`,
       },
       expensives: {
         amount: expensiveTotal.toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
         }),
-        lastTransaction:
-          lastTransactionExpensives === 0
-            ? 'Não há transações'
-            : `Última saída dia ${lastTransactionExpensives}`,
+        lastTransaction: !lastTransactionExpensives
+          ? 'Não há saídas'
+          : `Última saída dia ${lastTransactionExpensives}`,
       },
       total: {
         amount: total.toLocaleString('pt-BR', {
@@ -262,7 +261,7 @@ export function Dashboard() {
             </HighlightCards>
 
             <Transactions>
-              <Title>Listagem</Title>
+              <Title>Transações</Title>
 
               <TransactionList
                 data={transactions}
@@ -278,6 +277,9 @@ export function Dashboard() {
                   >
                     <TransactionCard data={item} />
                   </Swipeable>
+                )}
+                ListEmptyComponent={() => (
+                  <ListEmptyTransaction>Nenhuma transação</ListEmptyTransaction>
                 )}
               />
             </Transactions>

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { VictoryPie } from 'victory-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ActivityIndicator, ScrollView } from 'react-native';
+import { ActivityIndicator, ScrollView, Text } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { addMonths, subMonths, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -137,22 +137,35 @@ export function Resume() {
             </MonthSelectButton>
           </MonthSelect>
 
-          <ChartContainer>
-            <VictoryPie
-              data={totalByCategories}
-              x="percent"
-              y="total"
-              colorScale={totalByCategories.map(category => category.color)}
+          {totalByCategories.length > 0 ? (
+            <ChartContainer>
+              <VictoryPie
+                data={totalByCategories}
+                x="percent"
+                y="total"
+                colorScale={totalByCategories.map(category => category.color)}
+                style={{
+                  labels: {
+                    fontSize: RFValue(18),
+                    fontWeight: 'bold',
+                    fill: theme.colors.shape,
+                  },
+                }}
+                labelRadius={50}
+              />
+            </ChartContainer>
+          ) : (
+            <Text
               style={{
-                labels: {
-                  fontSize: RFValue(18),
-                  fontWeight: 'bold',
-                  fill: theme.colors.shape,
-                },
+                textAlign: 'center',
+                marginTop: 30,
+                color: theme.colors.text,
+                fontFamily: theme.fonts.regular,
               }}
-              labelRadius={50}
-            />
-          </ChartContainer>
+            >
+              Nenhum dado
+            </Text>
+          )}
 
           {totalByCategories.map(item => (
             <HistoryCard
