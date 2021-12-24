@@ -1,9 +1,18 @@
 {
   "expo": {
     "name": "myfinances",
+    "icon": "./assets/logo.png",
     "slug": "myfinances",
     "scheme": "myfinances",
     "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "com.gunnerslabs.myfinances",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.gunnerslabs.myfinances",
+      "versionCode": 1
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
