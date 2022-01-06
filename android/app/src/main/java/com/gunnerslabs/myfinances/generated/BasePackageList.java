@@ -1,4 +1,4 @@
-package com.myfinances.generated;
+package com.gunnerslabs.myfinances.generated;
 
 import java.util.Arrays;
 import java.util.List;
