@@ -1,17 +1,21 @@
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
+import Animated from 'react-native-reanimated';
 
 export const Container = styled.View`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
-export const Header = styled.View`
+export const Header = styled(Animated.View)`
   width: 100%;
   height: 65%;
   background-color: ${({ theme }) => theme.colors.primary};
   justify-content: flex-end;
   align-items: center;
   padding-top: 10px;
+  border-bottom-left-radius: 110px;
+  border-bottom-right-radius: 110px;
 `;
 
 export const TitleWrapper = styled.View`

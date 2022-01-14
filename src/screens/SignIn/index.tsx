@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
-import { ActivityIndicator, Alert, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Platform, Dimensions } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
+import {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import AppleSvg from '../../assets/apple.svg';
 import GoogleSvg from '../../assets/google.svg';
 import FacebookSvg from '../../assets/facebook.svg';
@@ -19,10 +24,20 @@ import {
 } from './styles';
 import { SignInFacebookSocialButton } from '../../components/SignInFacebookSocialButton';
 
+const { height } = Dimensions.get('window');
+
 export function SignIn() {
   const { signInWithGoogle, signInWithFacebook } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
+  const translateY = useSharedValue(-height / 1.5);
+  const tStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+  }));
+
+  useEffect(() => {
+    translateY.value = withTiming(0, { duration: 500 });
+  }, [translateY]);
 
   function handleSignInGoogle() {
     try {
@@ -46,7 +61,7 @@ export function SignIn() {
 
   return (
     <Container>
-      <Header>
+      <Header style={tStyle}>
         <TitleWrapper>
           <LogoSvg width={RFValue(140)} height={RFValue(140)} />
           <Title>
