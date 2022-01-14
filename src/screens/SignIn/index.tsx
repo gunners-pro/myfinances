@@ -4,6 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
 import AppleSvg from '../../assets/apple.svg';
 import GoogleSvg from '../../assets/google.svg';
+import FacebookSvg from '../../assets/facebook.svg';
 import LogoSvg from '../../assets/logo.svg';
 import SignInSocialButton from '../../components/SignInSocialButton';
 import { useAuth } from '../../context/AuthContext';
@@ -16,18 +17,30 @@ import {
   Footer,
   FooterWrapper,
 } from './styles';
+import { SignInFacebookSocialButton } from '../../components/SignInFacebookSocialButton';
 
 export function SignIn() {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, signInWithFacebook } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const theme = useTheme();
 
-  async function handleSignIn() {
+  function handleSignInGoogle() {
     try {
       setIsLoading(true);
-      await signInWithGoogle();
+      signInWithGoogle();
+      setIsLoading(false);
     } catch (error) {
       Alert.alert('Não foi possível conectar a conta Google');
+    }
+  }
+
+  function handleSignInFacebook() {
+    try {
+      setIsLoading(true);
+      signInWithFacebook();
+      setIsLoading(false);
+    } catch (error) {
+      Alert.alert('Não foi possível conectar a conta Facebook');
     }
   }
 
@@ -49,13 +62,18 @@ export function SignIn() {
       <Footer>
         <FooterWrapper>
           <SignInSocialButton
-            onPress={handleSignIn}
+            onPress={handleSignInGoogle}
             title="Entrar com Google"
             svg={GoogleSvg}
           />
           {Platform.OS === 'ios' && (
             <SignInSocialButton title="Entrar com Apple" svg={AppleSvg} />
           )}
+          <SignInFacebookSocialButton
+            onPress={handleSignInFacebook}
+            title="Entrar com Facebook"
+            svg={FacebookSvg}
+          />
         </FooterWrapper>
         {isLoading && (
           <ActivityIndicator

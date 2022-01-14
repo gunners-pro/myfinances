@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import React, {
   createContext,
   ReactNode,
@@ -7,10 +6,23 @@ import React, {
   useEffect,
 } from 'react';
 import * as AuthSession from 'expo-auth-session';
+import * as Facebook from 'expo-facebook';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const REDIRECT_URI = process.env.REDIRECT_URI;
+const FACEBOOK_APPID = process.env.FACEBOOK_APPID;
+
+interface FacebookResponse {
+  email: string;
+  id: string;
+  name: string;
+  picture: {
+    data: {
+      url: string;
+    };
+  };
+}
 
 interface AuthorizationResponse {
   params: {
@@ -29,6 +41,7 @@ interface User {
 type AuthContextData = {
   user?: User;
   signInWithGoogle: () => Promise<void>;
+  signInWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
   userStorageLoading: boolean;
 };
@@ -42,6 +55,39 @@ interface AuthProviderProps {
 function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>({} as User);
   const [userStorageLoading, setUserStorageLoading] = useState(true);
+
+  async function signInWithFacebook() {
+    try {
+      await Facebook.initializeAsync({
+        appId: FACEBOOK_APPID,
+      });
+
+      const response = await Facebook.logInWithReadPermissionsAsync({
+        permissions: ['public_profile'],
+      });
+
+      if (response.type === 'success') {
+        const responseUser = await fetch(
+          `https://graph.facebook.com/me?fields=id,name,picture.type(large),email&access_token=${response.token}`,
+        );
+        const data: FacebookResponse = await responseUser.json();
+
+        const facebookUser: User = {
+          id: data.id,
+          email: data.email,
+          name: data.name,
+          photo: data.picture.data.url,
+        };
+        setUser(facebookUser);
+        await AsyncStorage.setItem(
+          '@myfinances:user',
+          JSON.stringify(facebookUser),
+        );
+      }
+    } catch (error: any) {
+      throw new Error(error as string);
+    }
+  }
 
   async function signInWithGoogle() {
     try {
@@ -99,7 +145,13 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   return (
     <AuthContext.Provider
-      value={{ user, signInWithGoogle, signOut, userStorageLoading }}
+      value={{
+        user,
+        signInWithGoogle,
+        signInWithFacebook,
+        signOut,
+        userStorageLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -4,6 +4,7 @@
     "icon": "./assets/logo.png",
     "slug": "myfinances",
     "scheme": "myfinances",
+    "facebookScheme": "fb1122198735276552",
     "version": "1.0.1",
     "assetBundlePatterns": [
       "**/*"
