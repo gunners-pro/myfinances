@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Dashboard } from '../screens/Dashboard';
 import { Register } from '../screens/Register';
 import { Resume } from '../screens/Resume';
@@ -15,8 +15,8 @@ export function PrivateRoutes() {
     <Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: theme.colors.secondary,
-        tabBarInactiveTintColor: theme.colors.text,
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.text_light,
         tabBarLabelPosition: 'beside-icon',
         tabBarStyle: {
           height: 60,
@@ -24,7 +24,7 @@ export function PrivateRoutes() {
       }}
     >
       <Screen
-        name="Listagem"
+        name="Transações"
         component={Dashboard}
         options={{
           tabBarIcon: ({ size, color }) => (
@@ -41,7 +41,11 @@ export function PrivateRoutes() {
         component={Register}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <MaterialIcons name="attach-money" size={size} color={color} />
+            <MaterialCommunityIcons
+              name="text-box-plus"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />

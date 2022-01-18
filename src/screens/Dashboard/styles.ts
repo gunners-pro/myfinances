@@ -58,7 +58,7 @@ export const UserName = styled.Text`
 export const LogoutButton = styled(BorderlessButton)``;
 
 export const Icon = styled(Feather)`
-  color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.background};
   font-size: ${RFValue(24)}px;
 `;
 

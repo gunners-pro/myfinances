@@ -111,7 +111,7 @@ export function Register() {
         name: 'Categoria',
       });
       reset();
-      navigation.navigate('Listagem');
+      navigation.navigate('Transações');
     } catch (error) {
       Alert.alert('Não foi possível salvar');
     }
@@ -144,13 +144,13 @@ export function Register() {
             <TransactionsTypes>
               <TransactionTypeButton
                 type="up"
-                title="Income"
+                title="Entrada"
                 onPress={() => handleTransactionsTypes('positive')}
                 isActive={transactionType === 'positive'}
               />
               <TransactionTypeButton
                 type="down"
-                title="Outcome"
+                title="Saída"
                 onPress={() => handleTransactionsTypes('negative')}
                 isActive={transactionType === 'negative'}
               />
