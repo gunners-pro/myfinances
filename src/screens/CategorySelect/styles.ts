@@ -13,15 +13,15 @@ interface CategoryProps {
 export const Container = styled(GestureHandlerRootView)`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
+  padding: 0;
 `;
 
 export const Header = styled.View`
   width: 100%;
-  height: ${RFValue(113)}px;
+  height: ${RFValue(60)}px;
   background-color: ${({ theme }) => theme.colors.primary};
   align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 19px;
+  justify-content: center;
 `;
 
 export const Title = styled.Text`

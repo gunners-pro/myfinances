@@ -35,4 +35,22 @@ export const categories = [
     icon: 'book',
     color: '#9C001A',
   },
+  {
+    key: 'house',
+    name: 'Casa',
+    icon: 'home',
+    color: '#FF69B4',
+  },
+  {
+    key: 'health',
+    name: 'Saúde',
+    icon: 'activity',
+    color: '#FFD700',
+  },
+  {
+    key: 'other',
+    name: 'Outros',
+    icon: 'help-circle',
+    color: '#B8860B',
+  },
 ];

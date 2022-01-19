@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from 'react-native';
+import {
+  Alert,
+  Keyboard,
+  Modal,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { useForm } from 'react-hook-form';
 import uuid from 'react-native-uuid';
 import * as yup from 'yup';
@@ -74,11 +80,11 @@ export function Register() {
     const collectionKey = `@myfinances:transactions_user:${user?.id}`;
 
     if (!transactionType) {
-      return Alert.alert('Selecione o tipo da transação');
+      return Alert.alert('Ops', 'Selecione o tipo da transação');
     }
 
     if (category.key === 'category') {
-      return Alert.alert('Selecione a categoria');
+      return Alert.alert('Ops', 'Selecione a categoria');
     }
 
     const newTransaction = {
@@ -105,15 +111,16 @@ export function Register() {
         JSON.stringify(dataTransactionsFormatted),
       );
 
+      navigation.navigate('Transações');
+    } catch (error) {
+      Alert.alert('Não foi possível salvar');
+    } finally {
       setTransactionType('');
       setCategory({
         key: 'category',
         name: 'Categoria',
       });
       reset();
-      navigation.navigate('Transações');
-    } catch (error) {
-      Alert.alert('Não foi possível salvar');
     }
   }
 
@@ -165,12 +172,27 @@ export function Register() {
           <Button title="Cadastrar" onPress={handleSubmit(handleRegister)} />
         </Form>
 
-        <Modal visible={categoryModalOpen}>
-          <CategorySelect
-            category={category}
-            setCategory={setCategory}
-            closeSelectCategory={handleCloseSelectCategoryModal}
-          />
+        <Modal
+          visible={categoryModalOpen}
+          animationType="slide"
+          transparent
+          onRequestClose={() => setCategoryModalOpen(false)}
+          onDismiss={() => {}}
+        >
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              paddingHorizontal: 40,
+              paddingVertical: 80,
+            }}
+          >
+            <CategorySelect
+              category={category}
+              setCategory={setCategory}
+              closeSelectCategory={handleCloseSelectCategoryModal}
+            />
+          </View>
         </Modal>
       </Container>
     </TouchableWithoutFeedback>
