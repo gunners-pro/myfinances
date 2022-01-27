@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Dimensions } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
+import NetInfo from '@react-native-community/netinfo';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -50,20 +51,35 @@ export function SignIn() {
     });
   }, [translateY, translateXBtnGoogle, translateXBtnFacebook]);
 
-  function handleSignInGoogle() {
+  async function hasInternetConnection() {
+    const info = await NetInfo.fetch();
+    return info.isConnected;
+  }
+
+  async function handleSignInGoogle() {
     try {
       setIsLoading(true);
-      signInWithGoogle();
+      const hasInternet = await hasInternetConnection();
+      if (hasInternet) {
+        signInWithGoogle();
+      } else {
+        Alert.alert('Sem conexão', 'Tente novamente');
+      }
       setIsLoading(false);
     } catch (error) {
       Alert.alert('Não foi possível conectar a conta Google');
     }
   }
 
-  function handleSignInFacebook() {
+  async function handleSignInFacebook() {
     try {
       setIsLoading(true);
-      signInWithFacebook();
+      const hasInternet = await hasInternetConnection();
+      if (hasInternet) {
+        signInWithFacebook();
+      } else {
+        Alert.alert('Sem conexão', 'Tente novamente');
+      }
       setIsLoading(false);
     } catch (error) {
       Alert.alert('Não foi possível conectar a conta Facebook');
