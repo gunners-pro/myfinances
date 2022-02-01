@@ -61,13 +61,14 @@ export function SignIn() {
       setIsLoading(true);
       const hasInternet = await hasInternetConnection();
       if (hasInternet) {
-        signInWithGoogle();
+        setIsLoading(false);
+        await signInWithGoogle();
       } else {
         Alert.alert('Sem conexão', 'Tente novamente');
       }
-      setIsLoading(false);
     } catch (error) {
       Alert.alert('Não foi possível conectar a conta Google');
+      setIsLoading(false);
     }
   }
 
@@ -76,13 +77,14 @@ export function SignIn() {
       setIsLoading(true);
       const hasInternet = await hasInternetConnection();
       if (hasInternet) {
-        signInWithFacebook();
+        setIsLoading(false);
+        await signInWithFacebook();
       } else {
         Alert.alert('Sem conexão', 'Tente novamente');
       }
-      setIsLoading(false);
     } catch (error) {
       Alert.alert('Não foi possível conectar a conta Facebook');
+      setIsLoading(false);
     }
   }
 
